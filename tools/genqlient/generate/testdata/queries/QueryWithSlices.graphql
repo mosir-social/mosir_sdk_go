@@ -1,0 +1,8 @@
+query QueryWithSlices {
+  user {
+    emails
+    emailsOrNull
+    emailsWithNulls
+    emailsWithNullsOrNull
+  }
+}

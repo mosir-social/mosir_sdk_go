@@ -1,0 +1,259 @@
+"""DateTime is a scalar.
+
+We don't really have anything useful to do with this description though.
+"""
+scalar DateTime
+scalar Date
+scalar Junk
+scalar ComplexJunk
+
+"""Role is a type a user may have."""
+enum Role {
+  """What is a student?
+  
+  A student is primarily a person enrolled in a school or other educational institution and who is under learning with goals of acquiring knowledge, developing professions and achieving employment at desired field. In the broader sense, a student is anyone who applies themselves to the intensive intellectual engagement with some matter necessary to master it as part of some practical affair in which such mastery is basic or decisive.
+
+  (from [Wikipedia](https://en.wikipedia.org/wiki/Student))
+  """
+  STUDENT
+
+  """Teacher is a teacher, who teaches the students."""
+  TEACHER
+}
+
+input PokemonInput {
+  species: String!
+  level: Int!
+}
+
+type Pokemon {
+  species: String!
+  level: Int!
+}
+
+"""UserQueryInput is the argument to Query.users.
+
+Ideally this would support anything and everything!
+Or maybe ideally it wouldn't.
+Really I'm just talking to make this documentation longer.
+"""
+input UserQueryInput {
+  email: String
+  name: String
+  """id looks the user up by ID.  It's a great way to look up users."""
+  id: ID
+  role: Role
+  names: [String]
+  hasPokemon: PokemonInput
+  birthdate: Date
+}
+
+type AuthMethod {
+  provider: String
+  email: String
+}
+
+"""A User is a user!"""
+type User {
+  """id is the user's ID.
+  
+  It is stable, unique, and opaque, like all good IDs."""
+  id: ID!
+  roles: [Role!]
+  name: String
+  emails: [String!]!
+  emailsOrNull: [String!]
+  emailsWithNulls: [String]!
+  emailsWithNullsOrNull: [String]
+  user_id: String
+  display_name: String
+  authMethods: [AuthMethod!]!
+  pokemon: [Pokemon!]
+  greeting: Clip
+  birthdate: Date
+
+  lastContent: LeafContent
+}
+
+"""An audio clip, such as of a user saying hello."""
+type Clip implements HasDuration {
+  id: ID!
+  duration: Int!
+}
+
+"""Content is implemented by various types like Article, Video, and Topic."""
+interface Content {
+  """ID is the identifier of the content."""
+  id: ID!
+  name: String!
+  parent: Topic
+  url: String!
+  next: Content
+  related: [Content!]
+}
+
+"""An object with a duration, like a video."""
+interface HasDuration {
+  duration: Int!
+}
+
+"""LeafContent represents content items that can't have child-nodes."""
+union LeafContent = Article | Video
+
+type Article implements Content {
+  """ID is documented in the Content interface."""
+  id: ID!
+  name: String!
+  parent: Topic!
+  url: String!
+  text: String!
+  thumbnail: StuffThumbnail
+  next: Content
+  related: [Content!]
+}
+
+type StuffThumbnail {  # for articles, but let's give the name-generator a hard time.
+  id: ID!
+  thumbnailUrl: String!
+}
+
+type Video implements Content & HasDuration {
+  """ID is documented in the Content interface."""
+  id: ID!
+  name: String!
+  parent: Topic!
+  url: String!
+  duration: Int!
+  thumbnail: Thumbnail
+  next: Content
+  related: [Content!]
+}
+
+type Thumbnail {  # for videos, but let's give the name-generator a hard time.
+  id: ID!
+  timestampSec: Int!
+}
+
+type Topic implements Content {
+  """ID is documented in the Content interface."""
+  id: ID!
+  name: String!
+  parent: Topic
+  url: String!
+  children: [Content!]!
+  videoChildren: [Video!]!
+  schoolGrade: String
+  next: Topic
+  related: [Topic!]
+
+  newestContent: LeafContent
+}
+
+input RecursiveInput {
+  rec: [RecursiveInput]
+}
+
+type Recursive {
+  id: ID!
+  rec: Recursive
+}
+
+"""Query's description is probably ignored by almost all callers."""
+type Query {
+  """user looks up a user by some stuff.
+
+  See UserQueryInput for what stuff is supported.
+  If query is null, returns the current user.
+  """
+  user(query: UserQueryInput): User
+
+  users(query: [UserQueryInput]): [User]
+
+  """usersWithRole looks a user up by role."""
+  usersWithRole(role: Role!): [User!]!
+
+  usersBornOn(date: Date!): [User!]!
+
+  root: Topic!
+  randomItem: Content!
+  randomLeaf: LeafContent!
+  randomVideo: Video!
+  convert(dt: DateTime!, tz: String): DateTime!
+  maybeConvert(dt: DateTime, tz: String): DateTime
+  getJunk: Junk
+  getComplexJunk: ComplexJunk
+  listOfListsOfLists: [[[String!]!]!]!
+  listOfListsOfListsOfContent: [[[Content!]!]!]!
+  recur(input: RecursiveInput!): Recursive
+  acceptsListOfListOfListsOfDates(datesss: [[[Date!]!]!]!): Boolean
+  getPokemon(where: getPokemonBoolExp): [Pokemon!]!
+  # The top-level default is currently not used - there is no query that would not specify the input argument.
+  # But it is here for completeness - maybe it will be used in future or cause some other unexpected issues.
+  default(input: InputWithDefaults! = {field: "input omitted"}): Boolean
+  omitempty(input: OmitemptyInput): Boolean
+  useStructReferencesInput(input: UseStructReferencesInput!): Boolean
+  snake_case_type: snake_case_type
+  object: ObjectType!
+}
+
+type Mutation {
+  createUser(name: String!, email: String): User
+  # The following query is non-sensical, but tests that argument names don't 
+  # collide with local var names in generated functions
+  updateUser(data: String!, req: Int, resp: Int, client: String): User
+}
+
+input getPokemonBoolExp {
+  _and: [getPokemonBoolExp!]
+  _not: getPokemonBoolExp
+  _or: [getPokemonBoolExp!]
+  level: IntComparisonExp
+}
+
+input IntComparisonExp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _isNull: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+type Subscription {
+  count: Int!
+}
+
+input InputWithDefaults {
+  field: String! = "input field omitted"
+  nullableField: String = "nullable input field omitted"
+}
+
+input OmitemptyInput {
+  field: String!
+  nullableField: String
+}
+
+input StructInput {
+  field: String
+}
+
+input UseStructReferencesInput {
+  struct: StructInput!
+  nullableStruct: StructInput
+  list: [StructInput!]!
+  listOfNullable: [StructInput]!
+  nullableList: [StructInput!]
+}
+
+type snake_case_type {
+  id: ID!
+  name: String
+}
+
+type ObjectType {
+  id: ID!
+  snake_case_field: snake_case_type
+}

@@ -1,0 +1,16 @@
+schema:
+  - public.graphqls
+operations:
+  - public.operations.graphql
+generated: internal/generated/genqlient.go
+package: generated
+context_type: context.Context
+bindings:
+  DateTime:
+    type: time.Time
+  Emoji:
+    type: string
+  JSON:
+    type: json.RawMessage
+  Upload:
+    type: string

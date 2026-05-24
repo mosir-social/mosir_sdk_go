@@ -1,0 +1,6 @@
+query QueryWithDoubleAlias {
+  user {
+    ID: id
+    AlsoID: id
+  }
+}

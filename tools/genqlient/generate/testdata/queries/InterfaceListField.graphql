@@ -1,0 +1,19 @@
+query InterfaceListField {
+  root {
+    id
+    name
+    children {
+      id
+      name
+    }
+  }
+  # @genqlient(pointer: true)
+  withPointer: root {
+    id
+    name
+    children {
+      id
+      name
+    }
+  }
+}

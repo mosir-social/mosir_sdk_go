@@ -1,0 +1,18 @@
+version: '3'
+
+tasks:
+  codegen:
+    desc: Generate code using local genqlient fork and wrappers
+    cmds:
+      - cd tools/genqlient && go run .
+      - go run ./tools/genwrappers
+
+  test:
+    desc: Run tests
+    cmds:
+      - go test ./...
+
+  tidy:
+    desc: Run go mod tidy
+    cmds:
+      - go mod tidy

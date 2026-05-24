@@ -1,0 +1,6 @@
+query QueryWithAlias {
+  User: user {
+    ID: id
+    otherID: id
+  }
+}

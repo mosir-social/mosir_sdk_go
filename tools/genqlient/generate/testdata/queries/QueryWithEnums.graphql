@@ -1,0 +1,8 @@
+query QueryWithEnums {
+  user {
+    roles
+  }
+  otherUser: user {
+    roles
+  }
+}

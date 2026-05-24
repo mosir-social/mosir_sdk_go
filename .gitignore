@@ -1,0 +1,36 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Dependency directories
+vendor/
+
+# Local codegen binaries
+/tools/genqlient/genqlient
+
+# Go toolchain
+go.work
+
+# Coverage files
+*.out
+*.prof
+
+# Genqlient generated files (I'll commit them but if I want to ignore them, I should)
+# The TODO says "commit this" for internal/generated/
+# So I won't ignore it.
+
+# Taskfile
+.task/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo

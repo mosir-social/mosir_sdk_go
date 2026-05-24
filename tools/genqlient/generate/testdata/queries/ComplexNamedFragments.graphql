@@ -1,0 +1,80 @@
+fragment QueryFragment on Query {
+  ...InnerQueryFragment
+}
+
+fragment InnerQueryFragment on Query {
+  randomItem {
+    id name
+    ...VideoFields
+    ...ContentFields
+  }
+  randomLeaf {
+    ...VideoFields
+    ...MoreVideoFields
+    ...ContentFields
+  }
+  otherLeaf: randomLeaf {
+    ... on Video {
+      ...MoreVideoFields
+      ...ContentFields
+    }
+    ...ContentFields
+  }
+}
+
+fragment VideoFields on Video {
+  id name url duration thumbnail { id }
+  ...ContentFields
+}
+
+# @genqlient(pointer: true)
+fragment MoreVideoFields on Video {
+  id
+  parent {
+    name url
+    ...ContentFields
+    # @genqlient(pointer: false)
+    children {
+      ...VideoFields
+    }
+  }
+}
+
+fragment ContentFields on Content {
+  name url
+}
+
+query ComplexNamedFragments {
+  ... on Query { ...QueryFragment }
+}
+
+## two fragments of different types with fields containing the same inline named fragment of a union
+fragment SimpleLeafContent on LeafContent {
+  ... on Article {
+    id
+  }
+  ... on Video {
+    id
+  }
+}
+
+fragment UserLastContent on User {
+  lastContent {
+    ... SimpleLeafContent
+  }
+}
+
+fragment TopicNewestContent on Topic {
+  newestContent {
+    ... SimpleLeafContent
+  }
+}
+
+query ComplexNamedFragmentsWithInlineUnion {
+  user {
+    ...UserLastContent
+  }
+  root {
+    ...TopicNewestContent
+  }
+}

@@ -1,0 +1,1 @@
+testdata/errors/ConflictingTypeNameAndGlobalBind.graphql:4: typename option conflicts with global binding for ValidScalar; use `bind: "-"` to override it
