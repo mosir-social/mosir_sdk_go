@@ -160,3 +160,7 @@ task codegen
 - `internal/generated/` — generated GraphQL types and operations
 - `tools/genqlient/` — local codegen fork
 - `tools/genwrappers/` — wrapper generator for the root package
+
+## License
+
+This project is licensed under the GNU Lesser General Public License v3.0 or later. See [LICENSE](LICENSE).
