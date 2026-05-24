@@ -120,12 +120,21 @@ import (
 )
 
 ctx := context.Background()
-authorID := "GBWfRinN_Ya65D3SJaNS4"
 endpoint := "https://beta.mosir.app/api/v1"
 client := mosir.NewClient(endpoint, "", nil)
 
-err := client.PostCreatedByAuthor(ctx, authorID, mosir.PostTypePost, func(event mosir.PostCreatedByAuthorWsResponse) error {
-	fmt.Println(event.Data)
+profile, err := client.GetAccountProfile(ctx, "", "leemiyinghao")
+if err != nil {
+	panic(err)
+}
+authorID := profile.GetAccountProfile.Id
+
+err = client.PostCreatedByAuthor(ctx, authorID, mosir.PostTypePost, func(event mosir.PostCreatedByAuthorWsResponse) error {
+	if event.Data == nil {
+		return nil
+	}
+	fmt.Println(event.Data.PostCreatedByAuthor.Id)
+	fmt.Println(event.Data.PostCreatedByAuthor.Content)
 	return nil
 })
 if err != nil {
