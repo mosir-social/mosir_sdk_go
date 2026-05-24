@@ -109,30 +109,32 @@ _ = preview
 
 ## SSE subscriptions
 
+Subscriptions are methods on the main `Client`; there is no separate SSE client type.
+
 ```go
 import (
 	"context"
 	"fmt"
 
-	"github.com/tmaxmax/go-sse"
 	mosir "github.com/mosir-social/mosir_sdk_go"
 )
 
-client := mosir.NewClient("https://beta.mosir.app/api/v1", "", nil)
-err := client.SubscribeSSE(
-	context.Background(),
-	"https://beta.mosir.app/api/v1/sse/postCreatedByAuthor?authorId=...",
-	func(event *sse.Event) error {
-		fmt.Println(event.Data)
-		return nil
-	},
-)
+ctx := context.Background()
+authorID := "GBWfRinN_Ya65D3SJaNS4"
+endpoint := "https://beta.mosir.app/api/v1"
+client := mosir.NewClient(endpoint, "", nil)
+
+err := client.PostCreatedByAuthor(ctx, authorID, mosir.PostTypePost, func(event mosir.PostCreatedByAuthorWsResponse) error {
+	fmt.Println(event.Data)
+	return nil
+})
 if err != nil {
 	panic(err)
 }
 ```
 
 Notes:
+- `graphql-sse` uses the GraphQL API endpoint, not a separate `/sse/...` route
 - keep reconnect logic in your app
 - public subscriptions do not require a token
 - Mosir SSE connections are limited to 1 hour
@@ -153,7 +155,8 @@ task codegen
 - `client_generated.go` — generated operation wrappers, committed to git
 - `aliases.go` — small re-exports for generated input types
 - `helpers.go` — media and preview helpers
-- `sse.go` — thin SSE wrapper
+- `sse.go` — GraphQL SSE subscription wrappers
+- `public_operations_document.go` — embedded GraphQL operations document
 - `internal/generated/` — generated GraphQL types and operations
 - `tools/genqlient/` — local codegen fork
 - `tools/genwrappers/` — wrapper generator for the root package

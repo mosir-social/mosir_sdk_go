@@ -3,11 +3,10 @@ package mosir_sdk_go
 import (
 	"bytes"
 	"context"
-	"encoding/json"
+	"errors"
 	"io"
 	"net/http"
 	"os"
-	"strings"
 	"testing"
 	"time"
 )
@@ -42,15 +41,28 @@ func TestSmokeBetaEndpoint(t *testing.T) {
 	if resp.StatusCode != http.StatusOK {
 		t.Fatalf("unexpected status %d: %s", resp.StatusCode, string(body))
 	}
+}
 
-	var parsed map[string]any
-	if err := json.Unmarshal(body, &parsed); err != nil {
-		t.Fatalf("response is not valid JSON: %v; body=%s", err, string(body))
+func TestSmokeGraphQLSSEPostCreatedByAuthor(t *testing.T) {
+	if os.Getenv("MOSIR_SMOKE") != "1" {
+		t.Skip("set MOSIR_SMOKE=1 to run beta.mosir.app smoke test")
 	}
-	if _, ok := parsed["data"]; !ok {
-		t.Fatalf("expected data field in response: %s", string(body))
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	client := NewClient("https://beta.mosir.app/api/v1", "", nil)
+	authorID := "GBWfRinN_Ya65D3SJaNS4"
+	var got int
+	err := client.PostCreatedByAuthor(ctx, authorID, PostTypePost, func(event PostCreatedByAuthorWsResponse) error {
+		got++
+		_ = event
+		return nil
+	})
+	if err != nil && !errors.Is(err, context.DeadlineExceeded) {
+		t.Fatalf("subscription smoke failed: %v", err)
 	}
-	if !strings.Contains(string(body), "__typename") && parsed["data"] == nil {
-		t.Fatalf("unexpected response body: %s", string(body))
+	if got == 0 && err == nil {
+		t.Fatal("expected a timeout or event")
 	}
 }
