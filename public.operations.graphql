@@ -228,6 +228,22 @@ fragment PostCollectionFields on PostCollection {
   }
 }
 
+fragment PostCollectionSearchResultFields on PostCollectionSearchResult {
+  postCollection {
+    ...PostCollectionFields
+  }
+  relevanceScore
+}
+
+fragment PostCollectionSearchPageFields on PostCollectionSearchPage {
+  postCollections {
+    ...PostCollectionSearchResultFields
+  }
+  pageInfo {
+    ...PageInfoFields
+  }
+}
+
 fragment MonoPostDraftFields on MonoPostDraft {
   content
   attachmentIds {
@@ -525,6 +541,12 @@ query GetPost($postId: ID!) {
 query GetPostCollection($id: ID!) {
   getPostCollection(id: $id) {
     ...PostCollectionFields
+  }
+}
+
+query SearchPostCollections($cursor: String, $filter: PostCollectionSearchFilterInput, $limit: Int = 20, $query: String!) {
+  searchPostCollections(cursor: $cursor, filter: $filter, limit: $limit, query: $query) {
+    ...PostCollectionSearchPageFields
   }
 }
 

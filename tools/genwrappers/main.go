@@ -146,6 +146,12 @@ func main() {
 		"type PostDraftFilterInput = generated.PostDraftFilterInput",
 		"type ReactionTypeInput = generated.ReactionTypeInput",
 		"type PostType = generated.PostType",
+		"type NotificationReceivedWsResponse = generated.NotificationReceivedWsResponse",
+		"type PostCreatedByAuthorWsResponse = generated.PostCreatedByAuthorWsResponse",
+		"type PostCreatedInCollectionWsResponse = generated.PostCreatedInCollectionWsResponse",
+		"type PostDeletedWsResponse = generated.PostDeletedWsResponse",
+		"type PostUpdatedWsResponse = generated.PostUpdatedWsResponse",
+		"type ReplyCreatedUnderRootPostWsResponse = generated.ReplyCreatedUnderRootPostWsResponse",
 	}
 	var aliasOut bytes.Buffer
 	aliasOut.WriteString("package mosir_sdk_go\n\nimport generated \"github.com/mosir-social/mosir_sdk_go/internal/generated\"\n\n")
@@ -154,6 +160,11 @@ func main() {
 	for _, line := range aliases {
 		aliasOut.WriteString("\t" + strings.TrimPrefix(line, "type ") + "\n")
 	}
+	aliasOut.WriteString(")\n\n")
+	aliasOut.WriteString("// Re-exported enum values used by tests and examples.\n")
+	aliasOut.WriteString("const (\n")
+	aliasOut.WriteString("\tPostTypePost = generated.PostTypePost\n")
+	aliasOut.WriteString("\tPostTypeReply = generated.PostTypeReply\n")
 	aliasOut.WriteString(")\n")
 	if err := os.WriteFile("aliases.go", aliasOut.Bytes(), 0644); err != nil {
 		panic(err)

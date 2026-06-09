@@ -302,3 +302,13 @@ func (c *Client) ListProfileTags(ctx context.Context, cursor string, limit int) 
 	}
 	return generated.ListProfileTags(ctx, c.graphqlClient(), cursor, limit)
 }
+
+func (c *Client) SearchPostCollections(ctx context.Context, cursor string, filter generated.PostCollectionSearchFilterInput, limit int, query string) (data_ *generated.SearchPostCollectionsResponse, err_ error) {
+	if c == nil {
+		var zero0 *generated.SearchPostCollectionsResponse
+		var zero1 error
+		return zero0, zero1
+	}
+	return generated.SearchPostCollections(ctx, c.graphqlClient(), cursor, filter, limit, query)
+}
+

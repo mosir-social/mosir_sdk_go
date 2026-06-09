@@ -5849,6 +5849,309 @@ func (v *PostCollectionReferenceFields) GetTitle() string { return v.Title }
 // GetUpdatedAt returns PostCollectionReferenceFields.UpdatedAt, and is useful for accessing the field via an interface.
 func (v *PostCollectionReferenceFields) GetUpdatedAt() time.Time { return v.UpdatedAt }
 
+type PostCollectionSearchFilterInput struct {
+	AuthorID string `json:"authorID"`
+}
+
+// GetAuthorID returns PostCollectionSearchFilterInput.AuthorID, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchFilterInput) GetAuthorID() string { return v.AuthorID }
+
+// PostCollectionSearchPageFields includes the GraphQL fields of PostCollectionSearchPage requested by the fragment PostCollectionSearchPageFields.
+type PostCollectionSearchPageFields struct {
+	PostCollections []PostCollectionSearchPageFieldsPostCollectionsPostCollectionSearchResult `json:"postCollections"`
+	PageInfo        PostCollectionSearchPageFieldsPageInfo                                    `json:"pageInfo"`
+}
+
+// GetPostCollections returns PostCollectionSearchPageFields.PostCollections, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchPageFields) GetPostCollections() []PostCollectionSearchPageFieldsPostCollectionsPostCollectionSearchResult {
+	return v.PostCollections
+}
+
+// GetPageInfo returns PostCollectionSearchPageFields.PageInfo, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchPageFields) GetPageInfo() PostCollectionSearchPageFieldsPageInfo {
+	return v.PageInfo
+}
+
+// PostCollectionSearchPageFieldsPageInfo includes the requested fields of the GraphQL type PageInfo.
+type PostCollectionSearchPageFieldsPageInfo struct {
+	PageInfoFields `json:"-"`
+}
+
+// GetEndCursor returns PostCollectionSearchPageFieldsPageInfo.EndCursor, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchPageFieldsPageInfo) GetEndCursor() string {
+	return v.PageInfoFields.EndCursor
+}
+
+// GetHasNextPage returns PostCollectionSearchPageFieldsPageInfo.HasNextPage, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchPageFieldsPageInfo) GetHasNextPage() bool {
+	return v.PageInfoFields.HasNextPage
+}
+
+// GetTotalCount returns PostCollectionSearchPageFieldsPageInfo.TotalCount, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchPageFieldsPageInfo) GetTotalCount() int {
+	return v.PageInfoFields.TotalCount
+}
+
+func (v *PostCollectionSearchPageFieldsPageInfo) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*PostCollectionSearchPageFieldsPageInfo
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.PostCollectionSearchPageFieldsPageInfo = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.PageInfoFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalPostCollectionSearchPageFieldsPageInfo struct {
+	EndCursor string `json:"endCursor"`
+
+	HasNextPage bool `json:"hasNextPage"`
+
+	TotalCount int `json:"totalCount"`
+}
+
+func (v *PostCollectionSearchPageFieldsPageInfo) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *PostCollectionSearchPageFieldsPageInfo) __premarshalJSON() (*__premarshalPostCollectionSearchPageFieldsPageInfo, error) {
+	var retval __premarshalPostCollectionSearchPageFieldsPageInfo
+
+	retval.EndCursor = v.PageInfoFields.EndCursor
+	retval.HasNextPage = v.PageInfoFields.HasNextPage
+	retval.TotalCount = v.PageInfoFields.TotalCount
+	return &retval, nil
+}
+
+// PostCollectionSearchPageFieldsPostCollectionsPostCollectionSearchResult includes the requested fields of the GraphQL type PostCollectionSearchResult.
+type PostCollectionSearchPageFieldsPostCollectionsPostCollectionSearchResult struct {
+	PostCollectionSearchResultFields `json:"-"`
+}
+
+// GetPostCollection returns PostCollectionSearchPageFieldsPostCollectionsPostCollectionSearchResult.PostCollection, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchPageFieldsPostCollectionsPostCollectionSearchResult) GetPostCollection() PostCollectionSearchResultFieldsPostCollection {
+	return v.PostCollectionSearchResultFields.PostCollection
+}
+
+// GetRelevanceScore returns PostCollectionSearchPageFieldsPostCollectionsPostCollectionSearchResult.RelevanceScore, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchPageFieldsPostCollectionsPostCollectionSearchResult) GetRelevanceScore() float64 {
+	return v.PostCollectionSearchResultFields.RelevanceScore
+}
+
+func (v *PostCollectionSearchPageFieldsPostCollectionsPostCollectionSearchResult) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*PostCollectionSearchPageFieldsPostCollectionsPostCollectionSearchResult
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.PostCollectionSearchPageFieldsPostCollectionsPostCollectionSearchResult = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.PostCollectionSearchResultFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalPostCollectionSearchPageFieldsPostCollectionsPostCollectionSearchResult struct {
+	PostCollection PostCollectionSearchResultFieldsPostCollection `json:"postCollection"`
+
+	RelevanceScore float64 `json:"relevanceScore"`
+}
+
+func (v *PostCollectionSearchPageFieldsPostCollectionsPostCollectionSearchResult) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *PostCollectionSearchPageFieldsPostCollectionsPostCollectionSearchResult) __premarshalJSON() (*__premarshalPostCollectionSearchPageFieldsPostCollectionsPostCollectionSearchResult, error) {
+	var retval __premarshalPostCollectionSearchPageFieldsPostCollectionsPostCollectionSearchResult
+
+	retval.PostCollection = v.PostCollectionSearchResultFields.PostCollection
+	retval.RelevanceScore = v.PostCollectionSearchResultFields.RelevanceScore
+	return &retval, nil
+}
+
+// PostCollectionSearchResultFields includes the GraphQL fields of PostCollectionSearchResult requested by the fragment PostCollectionSearchResultFields.
+type PostCollectionSearchResultFields struct {
+	PostCollection PostCollectionSearchResultFieldsPostCollection `json:"postCollection"`
+	RelevanceScore float64                                        `json:"relevanceScore"`
+}
+
+// GetPostCollection returns PostCollectionSearchResultFields.PostCollection, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchResultFields) GetPostCollection() PostCollectionSearchResultFieldsPostCollection {
+	return v.PostCollection
+}
+
+// GetRelevanceScore returns PostCollectionSearchResultFields.RelevanceScore, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchResultFields) GetRelevanceScore() float64 { return v.RelevanceScore }
+
+// PostCollectionSearchResultFieldsPostCollection includes the requested fields of the GraphQL type PostCollection.
+type PostCollectionSearchResultFieldsPostCollection struct {
+	PostCollectionFields `json:"-"`
+}
+
+// GetId returns PostCollectionSearchResultFieldsPostCollection.Id, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchResultFieldsPostCollection) GetId() string {
+	return v.PostCollectionFields.Id
+}
+
+// GetAuthorID returns PostCollectionSearchResultFieldsPostCollection.AuthorID, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchResultFieldsPostCollection) GetAuthorID() string {
+	return v.PostCollectionFields.AuthorID
+}
+
+// GetCoverMediaID returns PostCollectionSearchResultFieldsPostCollection.CoverMediaID, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchResultFieldsPostCollection) GetCoverMediaID() string {
+	return v.PostCollectionFields.CoverMediaID
+}
+
+// GetCreatedAt returns PostCollectionSearchResultFieldsPostCollection.CreatedAt, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchResultFieldsPostCollection) GetCreatedAt() time.Time {
+	return v.PostCollectionFields.CreatedAt
+}
+
+// GetDescription returns PostCollectionSearchResultFieldsPostCollection.Description, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchResultFieldsPostCollection) GetDescription() string {
+	return v.PostCollectionFields.Description
+}
+
+// GetFollowLevel returns PostCollectionSearchResultFieldsPostCollection.FollowLevel, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchResultFieldsPostCollection) GetFollowLevel() FollowLevel {
+	return v.PostCollectionFields.FollowLevel
+}
+
+// GetPostCount returns PostCollectionSearchResultFieldsPostCollection.PostCount, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchResultFieldsPostCollection) GetPostCount() int {
+	return v.PostCollectionFields.PostCount
+}
+
+// GetTitle returns PostCollectionSearchResultFieldsPostCollection.Title, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchResultFieldsPostCollection) GetTitle() string {
+	return v.PostCollectionFields.Title
+}
+
+// GetUpdatedAt returns PostCollectionSearchResultFieldsPostCollection.UpdatedAt, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchResultFieldsPostCollection) GetUpdatedAt() time.Time {
+	return v.PostCollectionFields.UpdatedAt
+}
+
+// GetAuthor returns PostCollectionSearchResultFieldsPostCollection.Author, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchResultFieldsPostCollection) GetAuthor() PostCollectionFieldsAuthorProfile {
+	return v.PostCollectionFields.Author
+}
+
+// GetCoverMedia returns PostCollectionSearchResultFieldsPostCollection.CoverMedia, and is useful for accessing the field via an interface.
+func (v *PostCollectionSearchResultFieldsPostCollection) GetCoverMedia() PostCollectionFieldsCoverMediaMediaMetadata {
+	return v.PostCollectionFields.CoverMedia
+}
+
+func (v *PostCollectionSearchResultFieldsPostCollection) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*PostCollectionSearchResultFieldsPostCollection
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.PostCollectionSearchResultFieldsPostCollection = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.PostCollectionFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalPostCollectionSearchResultFieldsPostCollection struct {
+	Id string `json:"id"`
+
+	AuthorID string `json:"authorID"`
+
+	CoverMediaID string `json:"coverMediaID"`
+
+	CreatedAt time.Time `json:"createdAt"`
+
+	Description string `json:"description"`
+
+	FollowLevel FollowLevel `json:"followLevel"`
+
+	PostCount int `json:"postCount"`
+
+	Title string `json:"title"`
+
+	UpdatedAt time.Time `json:"updatedAt"`
+
+	Author PostCollectionFieldsAuthorProfile `json:"author"`
+
+	CoverMedia PostCollectionFieldsCoverMediaMediaMetadata `json:"coverMedia"`
+}
+
+func (v *PostCollectionSearchResultFieldsPostCollection) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *PostCollectionSearchResultFieldsPostCollection) __premarshalJSON() (*__premarshalPostCollectionSearchResultFieldsPostCollection, error) {
+	var retval __premarshalPostCollectionSearchResultFieldsPostCollection
+
+	retval.Id = v.PostCollectionFields.Id
+	retval.AuthorID = v.PostCollectionFields.AuthorID
+	retval.CoverMediaID = v.PostCollectionFields.CoverMediaID
+	retval.CreatedAt = v.PostCollectionFields.CreatedAt
+	retval.Description = v.PostCollectionFields.Description
+	retval.FollowLevel = v.PostCollectionFields.FollowLevel
+	retval.PostCount = v.PostCollectionFields.PostCount
+	retval.Title = v.PostCollectionFields.Title
+	retval.UpdatedAt = v.PostCollectionFields.UpdatedAt
+	retval.Author = v.PostCollectionFields.Author
+	retval.CoverMedia = v.PostCollectionFields.CoverMedia
+	return &retval, nil
+}
+
 type PostCommentPolicy string
 
 const (
@@ -9604,6 +9907,79 @@ func (v *ReplyCreatedUnderRootPostResponse) GetReplyCreatedUnderRootPost() Reply
 	return v.ReplyCreatedUnderRootPost
 }
 
+// SearchPostCollectionsResponse is returned by SearchPostCollections on success.
+type SearchPostCollectionsResponse struct {
+	// Search post collections by name.
+	SearchPostCollections SearchPostCollectionsSearchPostCollectionsPostCollectionSearchPage `json:"searchPostCollections"`
+}
+
+// GetSearchPostCollections returns SearchPostCollectionsResponse.SearchPostCollections, and is useful for accessing the field via an interface.
+func (v *SearchPostCollectionsResponse) GetSearchPostCollections() SearchPostCollectionsSearchPostCollectionsPostCollectionSearchPage {
+	return v.SearchPostCollections
+}
+
+// SearchPostCollectionsSearchPostCollectionsPostCollectionSearchPage includes the requested fields of the GraphQL type PostCollectionSearchPage.
+type SearchPostCollectionsSearchPostCollectionsPostCollectionSearchPage struct {
+	PostCollectionSearchPageFields `json:"-"`
+}
+
+// GetPostCollections returns SearchPostCollectionsSearchPostCollectionsPostCollectionSearchPage.PostCollections, and is useful for accessing the field via an interface.
+func (v *SearchPostCollectionsSearchPostCollectionsPostCollectionSearchPage) GetPostCollections() []PostCollectionSearchPageFieldsPostCollectionsPostCollectionSearchResult {
+	return v.PostCollectionSearchPageFields.PostCollections
+}
+
+// GetPageInfo returns SearchPostCollectionsSearchPostCollectionsPostCollectionSearchPage.PageInfo, and is useful for accessing the field via an interface.
+func (v *SearchPostCollectionsSearchPostCollectionsPostCollectionSearchPage) GetPageInfo() PostCollectionSearchPageFieldsPageInfo {
+	return v.PostCollectionSearchPageFields.PageInfo
+}
+
+func (v *SearchPostCollectionsSearchPostCollectionsPostCollectionSearchPage) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*SearchPostCollectionsSearchPostCollectionsPostCollectionSearchPage
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.SearchPostCollectionsSearchPostCollectionsPostCollectionSearchPage = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.PostCollectionSearchPageFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalSearchPostCollectionsSearchPostCollectionsPostCollectionSearchPage struct {
+	PostCollections []PostCollectionSearchPageFieldsPostCollectionsPostCollectionSearchResult `json:"postCollections"`
+
+	PageInfo PostCollectionSearchPageFieldsPageInfo `json:"pageInfo"`
+}
+
+func (v *SearchPostCollectionsSearchPostCollectionsPostCollectionSearchPage) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *SearchPostCollectionsSearchPostCollectionsPostCollectionSearchPage) __premarshalJSON() (*__premarshalSearchPostCollectionsSearchPostCollectionsPostCollectionSearchPage, error) {
+	var retval __premarshalSearchPostCollectionsSearchPostCollectionsPostCollectionSearchPage
+
+	retval.PostCollections = v.PostCollectionSearchPageFields.PostCollections
+	retval.PageInfo = v.PostCollectionSearchPageFields.PageInfo
+	return &retval, nil
+}
+
 type Status string
 
 const (
@@ -10303,6 +10679,26 @@ type __ReplyCreatedUnderRootPostInput struct {
 
 // GetRootPostId returns __ReplyCreatedUnderRootPostInput.RootPostId, and is useful for accessing the field via an interface.
 func (v *__ReplyCreatedUnderRootPostInput) GetRootPostId() string { return v.RootPostId }
+
+// __SearchPostCollectionsInput is used internally by genqlient
+type __SearchPostCollectionsInput struct {
+	Cursor string                          `json:"cursor"`
+	Filter PostCollectionSearchFilterInput `json:"filter"`
+	Limit  int                             `json:"limit"`
+	Query  string                          `json:"query"`
+}
+
+// GetCursor returns __SearchPostCollectionsInput.Cursor, and is useful for accessing the field via an interface.
+func (v *__SearchPostCollectionsInput) GetCursor() string { return v.Cursor }
+
+// GetFilter returns __SearchPostCollectionsInput.Filter, and is useful for accessing the field via an interface.
+func (v *__SearchPostCollectionsInput) GetFilter() PostCollectionSearchFilterInput { return v.Filter }
+
+// GetLimit returns __SearchPostCollectionsInput.Limit, and is useful for accessing the field via an interface.
+func (v *__SearchPostCollectionsInput) GetLimit() int { return v.Limit }
+
+// GetQuery returns __SearchPostCollectionsInput.Query, and is useful for accessing the field via an interface.
+func (v *__SearchPostCollectionsInput) GetQuery() string { return v.Query }
 
 // The query executed by GetAccountProfile.
 const GetAccountProfile_Operation = `
@@ -15329,4 +15725,112 @@ func ReplyCreatedUnderRootPostForwardData(interfaceChan interface{}, jsonRawMsg 
 	}
 	dataChan_ <- wsResp
 	return nil
+}
+
+// The query executed by SearchPostCollections.
+const SearchPostCollections_Operation = `
+query SearchPostCollections ($cursor: String, $filter: PostCollectionSearchFilterInput, $limit: Int = 20, $query: String!) {
+	searchPostCollections(cursor: $cursor, filter: $filter, limit: $limit, query: $query) {
+		... PostCollectionSearchPageFields
+	}
+}
+fragment PostCollectionSearchPageFields on PostCollectionSearchPage {
+	postCollections {
+		... PostCollectionSearchResultFields
+	}
+	pageInfo {
+		... PageInfoFields
+	}
+}
+fragment PostCollectionSearchResultFields on PostCollectionSearchResult {
+	postCollection {
+		... PostCollectionFields
+	}
+	relevanceScore
+}
+fragment PageInfoFields on PageInfo {
+	endCursor
+	hasNextPage
+	totalCount
+}
+fragment PostCollectionFields on PostCollection {
+	id
+	authorID
+	coverMediaID
+	createdAt
+	description
+	followLevel
+	postCount
+	title
+	updatedAt
+	author {
+		... ProfileReferenceFields
+	}
+	coverMedia {
+		... MediaMetadataFields
+	}
+}
+fragment ProfileReferenceFields on Profile {
+	id
+	username
+	displayName
+	profileEmoji
+	profileMediaId
+}
+fragment MediaMetadataFields on MediaMetadata {
+	id
+	accountID
+	aspectRatio {
+		... AspectRatioFields
+	}
+	blurHash
+	durationMs
+	files {
+		... MediaFileMetadataFields
+	}
+	status
+	type
+}
+fragment AspectRatioFields on AspectRatio {
+	numerator
+	denominator
+}
+fragment MediaFileMetadataFields on MediaFileMetadata {
+	id
+	mediaId
+	profile
+	contentType
+	url
+}
+`
+
+func SearchPostCollections(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	cursor string,
+	filter PostCollectionSearchFilterInput,
+	limit int,
+	query string,
+) (data_ *SearchPostCollectionsResponse, err_ error) {
+	req_ := &graphql.Request{
+		OpName: "SearchPostCollections",
+		Query:  SearchPostCollections_Operation,
+		Variables: &__SearchPostCollectionsInput{
+			Cursor: cursor,
+			Filter: filter,
+			Limit:  limit,
+			Query:  query,
+		},
+	}
+
+	data_ = &SearchPostCollectionsResponse{}
+	resp_ := &graphql.Response{Data: data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return data_, err_
 }
