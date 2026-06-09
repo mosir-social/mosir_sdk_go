@@ -8349,6 +8349,7 @@ type PostVisibilityPolicy string
 
 const (
 	PostVisibilityPolicyFollowers       PostVisibilityPolicy = "FOLLOWERS"
+	PostVisibilityPolicyLoggedInOnly    PostVisibilityPolicy = "LOGGED_IN_ONLY"
 	PostVisibilityPolicyMutualFollowers PostVisibilityPolicy = "MUTUAL_FOLLOWERS"
 	PostVisibilityPolicyPublic          PostVisibilityPolicy = "PUBLIC"
 	PostVisibilityPolicyTagMembers      PostVisibilityPolicy = "TAG_MEMBERS"
@@ -8356,6 +8357,7 @@ const (
 
 var AllPostVisibilityPolicy = []PostVisibilityPolicy{
 	PostVisibilityPolicyFollowers,
+	PostVisibilityPolicyLoggedInOnly,
 	PostVisibilityPolicyMutualFollowers,
 	PostVisibilityPolicyPublic,
 	PostVisibilityPolicyTagMembers,
