@@ -59,19 +59,42 @@ func main() {
 Use a token for authenticated operations such as notifications.
 
 ```go
-client := mosir.NewClient("https://beta.mosir.app/api/v1", os.Getenv("MOSIR_API_TOKEN"), nil)
+package main
 
-notifications, err := client.GetNotifications(context.Background(), "", mosir.NotificationFilterInput{}, 20)
-if err != nil {
-	panic(err)
+import (
+	"context"
+	"fmt"
+	"os"
+
+	mosir "github.com/mosir-social/mosir_sdk_go"
+)
+
+func main() {
+	client := mosir.NewClient("https://beta.mosir.app/api/v1", os.Getenv("MOSIR_API_TOKEN"), nil)
+
+	notifications, err := client.GetNotifications(context.Background(), "", mosir.NotificationFilterInput{}, 20)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(notifications.GetNotifications.Edges)
 }
-fmt.Println(notifications.GetNotifications.Edges)
 ```
 
 ## Custom endpoint
 
 ```go
-client := mosir.NewClient("https://example.com/api/v1", os.Getenv("MOSIR_API_TOKEN"), nil)
+package main
+
+import (
+	"os"
+
+	mosir "github.com/mosir-social/mosir_sdk_go"
+)
+
+func main() {
+	client := mosir.NewClient("https://example.com/api/v1", os.Getenv("MOSIR_API_TOKEN"), nil)
+	_ = client
+}
 ```
 
 ## Common usage examples
@@ -79,13 +102,26 @@ client := mosir.NewClient("https://example.com/api/v1", os.Getenv("MOSIR_API_TOK
 ### Get a post
 
 ```go
-post, err := client.GetPost(context.Background(), "VLO8u7UXqclQ7byjfMEX0")
-if err != nil {
-	panic(err)
-}
+package main
 
-fmt.Println(post.GetPost.Author.Username)
-fmt.Println(post.GetPost.Content)
+import (
+	"context"
+	"fmt"
+
+	mosir "github.com/mosir-social/mosir_sdk_go"
+)
+
+func main() {
+	client := mosir.NewClient("https://beta.mosir.app/api/v1", "", nil)
+
+	post, err := client.GetPost(context.Background(), "VLO8u7UXqclQ7byjfMEX0")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(post.GetPost.Author.Username)
+	fmt.Println(post.GetPost.Content)
+}
 ```
 
 ### Get replies under a post
@@ -159,36 +195,80 @@ func main() {
 ### Get notifications
 
 ```go
-notifications, err := client.GetNotifications(context.Background(), "", mosir.NotificationFilterInput{}, 20)
-if err != nil {
-	panic(err)
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+
+	mosir "github.com/mosir-social/mosir_sdk_go"
+)
+
+func main() {
+	client := mosir.NewClient("https://beta.mosir.app/api/v1", os.Getenv("MOSIR_API_TOKEN"), nil)
+
+	notifications, err := client.GetNotifications(context.Background(), "", mosir.NotificationFilterInput{}, 20)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(notifications.GetNotifications.Edges)
 }
-fmt.Println(notifications.GetNotifications.Edges)
 ```
 
 ### Fetch media bytes from a `Media` result
 
 ```go
-var media *mosir.MediaMetadata
+package main
 
-bytes, err := client.FetchMedia(context.Background(), media, nil)
-if err != nil {
-	panic(err)
+import (
+	"context"
+	"fmt"
+
+	mosir "github.com/mosir-social/mosir_sdk_go"
+)
+
+func main() {
+	client := mosir.NewClient("https://beta.mosir.app/api/v1", "", nil)
+	media := &mosir.MediaMetadata{
+		Files: []mosir.MediaFileMetadata{{
+			Profile: mosir.MediaFileProfileQuality,
+			URL:     "https://example.com/media.jpg",
+		}},
+	}
+
+	bytes, err := client.FetchMedia(context.Background(), media, nil)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(len(bytes))
 }
-fmt.Println(len(bytes))
 ```
 
 ### Fetch preview image for a post, profile, or collection
 
 ```go
-previewURL := mosir.GetPreviewImageUrl("https://beta.mosir.app/api/v1", "post", "VLO8u7UXqclQ7byjfMEX0")
-fmt.Println(previewURL)
+package main
 
-previewBytes, err := client.FetchPreviewImage(context.Background(), "post", "VLO8u7UXqclQ7byjfMEX0", nil)
-if err != nil {
-	panic(err)
+import (
+	"context"
+	"fmt"
+
+	mosir "github.com/mosir-social/mosir_sdk_go"
+)
+
+func main() {
+	client := mosir.NewClient("https://beta.mosir.app/api/v1", "", nil)
+
+	previewURL := mosir.GetPreviewImageUrl("https://beta.mosir.app/api/v1", "post", "VLO8u7UXqclQ7byjfMEX0")
+	fmt.Println(previewURL)
+
+	previewBytes, err := client.FetchPreviewImage(context.Background(), "post", "VLO8u7UXqclQ7byjfMEX0", nil)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(len(previewBytes))
 }
-fmt.Println(len(previewBytes))
 ```
 
 All generated operations are available directly on `client` as methods (for example, `client.GetCurrentAccount(...)`).
@@ -242,6 +322,7 @@ Authentication is optional. Pass a token when creating `Client` for authenticate
 Use generated client methods directly:
 
 ```go
+client := mosir.NewClient("https://beta.mosir.app/api/v1", "", nil)
 data, err := client.GetNotifications(context.Background(), "", mosir.NotificationFilterInput{}, 20)
 ```
 
