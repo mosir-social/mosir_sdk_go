@@ -4429,6 +4429,21 @@ func (v *NotificationConnectionFieldsEdgesNotification) GetType() NotificationTy
 	return v.NotificationFields.Type
 }
 
+// GetReactionCount returns NotificationConnectionFieldsEdgesNotification.ReactionCount, and is useful for accessing the field via an interface.
+func (v *NotificationConnectionFieldsEdgesNotification) GetReactionCount() int {
+	return v.NotificationFields.ReactionCount
+}
+
+// GetReactionVariantCount returns NotificationConnectionFieldsEdgesNotification.ReactionVariantCount, and is useful for accessing the field via an interface.
+func (v *NotificationConnectionFieldsEdgesNotification) GetReactionVariantCount() int {
+	return v.NotificationFields.ReactionVariantCount
+}
+
+// GetIsMultiUserReaction returns NotificationConnectionFieldsEdgesNotification.IsMultiUserReaction, and is useful for accessing the field via an interface.
+func (v *NotificationConnectionFieldsEdgesNotification) GetIsMultiUserReaction() bool {
+	return v.NotificationFields.IsMultiUserReaction
+}
+
 // GetRelatedPostID returns NotificationConnectionFieldsEdgesNotification.RelatedPostID, and is useful for accessing the field via an interface.
 func (v *NotificationConnectionFieldsEdgesNotification) GetRelatedPostID() string {
 	return v.NotificationFields.RelatedPostID
@@ -4510,6 +4525,12 @@ type __premarshalNotificationConnectionFieldsEdgesNotification struct {
 
 	Type NotificationType `json:"type"`
 
+	ReactionCount int `json:"reactionCount"`
+
+	ReactionVariantCount int `json:"reactionVariantCount"`
+
+	IsMultiUserReaction bool `json:"isMultiUserReaction"`
+
 	RelatedPostID string `json:"relatedPostID"`
 
 	RelatedPostCollectionID string `json:"relatedPostCollectionID"`
@@ -4545,6 +4566,9 @@ func (v *NotificationConnectionFieldsEdgesNotification) __premarshalJSON() (*__p
 	retval.IsRead = v.NotificationFields.IsRead
 	retval.Message = v.NotificationFields.Message
 	retval.Type = v.NotificationFields.Type
+	retval.ReactionCount = v.NotificationFields.ReactionCount
+	retval.ReactionVariantCount = v.NotificationFields.ReactionVariantCount
+	retval.IsMultiUserReaction = v.NotificationFields.IsMultiUserReaction
 	retval.RelatedPostID = v.NotificationFields.RelatedPostID
 	retval.RelatedPostCollectionID = v.NotificationFields.RelatedPostCollectionID
 	retval.SourceProfileID = v.NotificationFields.SourceProfileID
@@ -4634,6 +4658,9 @@ type NotificationFields struct {
 	IsRead                  bool                                    `json:"isRead"`
 	Message                 string                                  `json:"message"`
 	Type                    NotificationType                        `json:"type"`
+	ReactionCount           int                                     `json:"reactionCount"`
+	ReactionVariantCount    int                                     `json:"reactionVariantCount"`
+	IsMultiUserReaction     bool                                    `json:"isMultiUserReaction"`
 	RelatedPostID           string                                  `json:"relatedPostID"`
 	RelatedPostCollectionID string                                  `json:"relatedPostCollectionID"`
 	SourceProfileID         string                                  `json:"sourceProfileID"`
@@ -4659,6 +4686,15 @@ func (v *NotificationFields) GetMessage() string { return v.Message }
 
 // GetType returns NotificationFields.Type, and is useful for accessing the field via an interface.
 func (v *NotificationFields) GetType() NotificationType { return v.Type }
+
+// GetReactionCount returns NotificationFields.ReactionCount, and is useful for accessing the field via an interface.
+func (v *NotificationFields) GetReactionCount() int { return v.ReactionCount }
+
+// GetReactionVariantCount returns NotificationFields.ReactionVariantCount, and is useful for accessing the field via an interface.
+func (v *NotificationFields) GetReactionVariantCount() int { return v.ReactionVariantCount }
+
+// GetIsMultiUserReaction returns NotificationFields.IsMultiUserReaction, and is useful for accessing the field via an interface.
+func (v *NotificationFields) GetIsMultiUserReaction() bool { return v.IsMultiUserReaction }
 
 // GetRelatedPostID returns NotificationFields.RelatedPostID, and is useful for accessing the field via an interface.
 func (v *NotificationFields) GetRelatedPostID() string { return v.RelatedPostID }
@@ -5170,6 +5206,21 @@ func (v *NotificationReceivedNotificationReceivedNotification) GetType() Notific
 	return v.NotificationFields.Type
 }
 
+// GetReactionCount returns NotificationReceivedNotificationReceivedNotification.ReactionCount, and is useful for accessing the field via an interface.
+func (v *NotificationReceivedNotificationReceivedNotification) GetReactionCount() int {
+	return v.NotificationFields.ReactionCount
+}
+
+// GetReactionVariantCount returns NotificationReceivedNotificationReceivedNotification.ReactionVariantCount, and is useful for accessing the field via an interface.
+func (v *NotificationReceivedNotificationReceivedNotification) GetReactionVariantCount() int {
+	return v.NotificationFields.ReactionVariantCount
+}
+
+// GetIsMultiUserReaction returns NotificationReceivedNotificationReceivedNotification.IsMultiUserReaction, and is useful for accessing the field via an interface.
+func (v *NotificationReceivedNotificationReceivedNotification) GetIsMultiUserReaction() bool {
+	return v.NotificationFields.IsMultiUserReaction
+}
+
 // GetRelatedPostID returns NotificationReceivedNotificationReceivedNotification.RelatedPostID, and is useful for accessing the field via an interface.
 func (v *NotificationReceivedNotificationReceivedNotification) GetRelatedPostID() string {
 	return v.NotificationFields.RelatedPostID
@@ -5251,6 +5302,12 @@ type __premarshalNotificationReceivedNotificationReceivedNotification struct {
 
 	Type NotificationType `json:"type"`
 
+	ReactionCount int `json:"reactionCount"`
+
+	ReactionVariantCount int `json:"reactionVariantCount"`
+
+	IsMultiUserReaction bool `json:"isMultiUserReaction"`
+
 	RelatedPostID string `json:"relatedPostID"`
 
 	RelatedPostCollectionID string `json:"relatedPostCollectionID"`
@@ -5286,6 +5343,9 @@ func (v *NotificationReceivedNotificationReceivedNotification) __premarshalJSON(
 	retval.IsRead = v.NotificationFields.IsRead
 	retval.Message = v.NotificationFields.Message
 	retval.Type = v.NotificationFields.Type
+	retval.ReactionCount = v.NotificationFields.ReactionCount
+	retval.ReactionVariantCount = v.NotificationFields.ReactionVariantCount
+	retval.IsMultiUserReaction = v.NotificationFields.IsMultiUserReaction
 	retval.RelatedPostID = v.NotificationFields.RelatedPostID
 	retval.RelatedPostCollectionID = v.NotificationFields.RelatedPostCollectionID
 	retval.SourceProfileID = v.NotificationFields.SourceProfileID
@@ -12580,6 +12640,9 @@ fragment NotificationFields on Notification {
 	isRead
 	message
 	type
+	reactionCount
+	reactionVariantCount
+	isMultiUserReaction
 	relatedPostID
 	relatedPostCollectionID
 	sourceProfileID
@@ -14754,6 +14817,9 @@ fragment NotificationFields on Notification {
 	isRead
 	message
 	type
+	reactionCount
+	reactionVariantCount
+	isMultiUserReaction
 	relatedPostID
 	relatedPostCollectionID
 	sourceProfileID
