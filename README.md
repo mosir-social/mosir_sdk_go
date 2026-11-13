@@ -347,22 +347,25 @@ If you want it, use your own GraphQL WebSocket client against the same endpoint.
 
 ## Development
 
+Install [mise](https://mise.jdx.dev/getting-started.html) and Go (see `go.mod`).
+Run `mise trust` in this checkout, then `mise tasks` to list the commands.
+
 ### Generate code
 
 ```bash
-task codegen
+mise run codegen
 ```
 
 ### Test
 
 ```bash
-task test
+mise run test
 ```
 
 ### Tidy dependencies
 
 ```bash
-task tidy
+mise run tidy
 ```
 
 ## Repo artifacts
