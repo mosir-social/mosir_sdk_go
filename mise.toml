@@ -1,0 +1,11 @@
+[tasks.codegen]
+description = "Generate code using local genqlient fork and wrappers"
+run = ["cd tools/genqlient && go run .", "go run ./tools/genwrappers"]
+
+[tasks.test]
+description = "Run tests"
+run = "go test ./..."
+
+[tasks.tidy]
+description = "Run go mod tidy"
+run = "go mod tidy"

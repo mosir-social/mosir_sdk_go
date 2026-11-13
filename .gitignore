@@ -26,9 +26,6 @@ go.work
 # The TODO says "commit this" for internal/generated/
 # So I won't ignore it.
 
-# Taskfile
-.task/
-
 # IDEs
 .idea/
 .vscode/
